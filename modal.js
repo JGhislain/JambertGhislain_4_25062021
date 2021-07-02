@@ -268,7 +268,7 @@ formulaire.addEventListener('submit', function(e) {
   } else {
 
     validationChampsIndividuel = true;
-    //console.log(city[i].value);
+    console.log(document.querySelector("input[name='location']:checked").value);
     console.log(firstName.value);
     console.log(lastName.value);
     console.log(email.value);
@@ -348,6 +348,7 @@ formulaire.addEventListener('submit', function(e) {
 
 //Validation des vérifications des conditions au cas par cas et globale
 formulaire.addEventListener('submit', function(e) {
+  //faire appel aux éléments de validation ici en appelant le return)
 //Si validationChamps = true et validationGlobale = true alors le document est envoyé avec message de confirmation  
   if (((validationRegex) && (validationChampsIndividuel) && (validationChampsTexte)) == true) {
     
