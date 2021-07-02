@@ -38,6 +38,7 @@ function closeModal() {
   modalDisplay.style.display = "none";
 }
 
+var validationRegex;
 //Ecoute du formulaire (partie prénom)
 formData[0].addEventListener('input', function(e) {
   //Création d'une regex pour la validation du prénom  
@@ -51,11 +52,13 @@ formData[0].addEventListener('input', function(e) {
     firstValidate.style.color = 'red';
     firstValidate.style.fontSize = '13px';
     firstValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du prénom.";
+    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide    
     firstValidate.style.display = 'none';
+    validationRegex = true;
     return true;
 
   }
@@ -74,11 +77,13 @@ formData[1].addEventListener('input', function(e) {
     lastValidate.style.color = 'red';
     lastValidate.style.fontSize = '13px';
     lastValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du nom.";
+    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     lastValidate.style.display = 'none';
+    validationRegex = true;
     return true;
 
   }
@@ -97,11 +102,13 @@ formData[2].addEventListener('input', function(e) {
     emailValidate.style.color = 'red';
     emailValidate.style.fontSize = '13px';
     emailValidate.innerHTML = "L'adresse éléctronique n'est pas valide";
+    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     emailValidate.style.display = 'none';
+    validationRegex = true;
     return true;  
   }
 });
@@ -119,11 +126,13 @@ formData[3].addEventListener('input', function(e) {
     birthValidate.style.color = 'red';
     birthValidate.style.fontSize = '13px';
     birthValidate.innerHTML = "La date de naissance n'est pas valide";
+    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     birthValidate.style.display = 'none';
+    validationRegex = true;
     return true;  
   }
 });
@@ -141,11 +150,13 @@ formData[4].addEventListener('input', function(e) {
     quantityValidate.style.color = 'red';
     quantityValidate.style.fontSize = '13px';
     quantityValidate.innerHTML = "Veuillez entrer un chiffre entre 0 et 99.";
+    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     quantityValidate.style.display = 'none';
+    validationRegex = true;
     return true;
 
   }
@@ -325,12 +336,10 @@ formulaire.addEventListener('submit', function(e) {
     document.getElementById('error-validation').style.transition = '0.3s';
     document.getElementById('error-validation').style.color = '#e54858';
     document.getElementById('error-validation').style.fontSize = '16px';
-    validationRadio = false;
     return false;
   //Sinon le formulaire est envoyé
   } else {
 
-    validationRadio = true;
     console.log("Excellent! Vous avez choisis une ville.");
     return true;
   
@@ -340,7 +349,7 @@ formulaire.addEventListener('submit', function(e) {
 //Validation des vérifications des conditions au cas par cas et globale
 formulaire.addEventListener('submit', function(e) {
 //Si validationChamps = true et validationGlobale = true alors le document est envoyé avec message de confirmation  
-  if ((validationChampsIndividuel && validationChampsTexte && validationRadio) == true) {
+  if (((validationRegex) && (validationChampsIndividuel) && (validationChampsTexte)) == true) {
     
     alert("Merci! Votre réservation a été reçue.");
     return true;
