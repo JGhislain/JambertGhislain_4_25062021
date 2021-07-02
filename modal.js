@@ -256,7 +256,7 @@ formulaire.addEventListener('submit', function(e) {
 
   } else {
 
-    validationChamps = true;
+    validationChampsIndividuel = true;
     //console.log(city[i].value);
     console.log(firstName.value);
     console.log(lastName.value);
@@ -292,19 +292,21 @@ document.forms["reserve"].addEventListener('submit', function(e) {
 
     e.preventDefault();
     document.getElementById('error-validation').innerHTML = erreur;
-    document.getElementById('error-validation').style.color = 'red';
+    document.getElementById('error-validation').style.transition = '0.3s';
+    document.getElementById('error-validation').style.color = '#e54858';
     document.getElementById('error-validation').style.fontSize = '16px';
     validationChampsTexte = false;
+    return false;
 //Sinon le formulaire est envoyé
   } else {
     
     console.log("Bravo! Les champs de textes sont remplis.");
     validationChampsTexte = true;
+    return true;
   
   }
 });
 //Meme boucle que précédemment mais ne concerne que la partie Radio
-var validationRadio;
 
 formulaire.addEventListener('submit', function(e) {
 
@@ -320,14 +322,17 @@ formulaire.addEventListener('submit', function(e) {
 
     e.preventDefault();
     document.getElementById('error-validation').innerHTML = erreurMsg;
-    document.getElementById('error-validation').style.color = 'red';
+    document.getElementById('error-validation').style.transition = '0.3s';
+    document.getElementById('error-validation').style.color = '#e54858';
     document.getElementById('error-validation').style.fontSize = '16px';
     validationRadio = false;
+    return false;
   //Sinon le formulaire est envoyé
   } else {
 
     validationRadio = true;
     console.log("Excellent! Vous avez choisis une ville.");
+    return true;
   
   }
 });
@@ -335,9 +340,10 @@ formulaire.addEventListener('submit', function(e) {
 //Validation des vérifications des conditions au cas par cas et globale
 formulaire.addEventListener('submit', function(e) {
 //Si validationChamps = true et validationGlobale = true alors le document est envoyé avec message de confirmation  
-  if ((validationChamps && validationChampsTexte && validationRadio) == true) {
+  if ((validationChampsIndividuel && validationChampsTexte && validationRadio) == true) {
     
     alert("Merci! Votre réservation a été reçue.");
+    return true;
   
   }
 });
