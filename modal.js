@@ -10,9 +10,9 @@ function editNav() {
 // DOM Elements
 const modalDisplay = document.querySelector(".bground");
 const modalBoutons = document.querySelectorAll(".modal-btn");
-const formulaire = document.querySelectorAll(".formData");
+const formData = document.querySelectorAll(".formData");
 const modalBoutonClose = document.querySelectorAll('.close');
-const formulaireId = document.getElementById('formulaire');
+const formulaire = document.getElementById('formulaire');
 const firstName = document.getElementById('first');
 const lastName = document.getElementById('last');
 const email = document.getElementById('email');
@@ -39,239 +39,240 @@ function closeModal() {
 }
 
 //Ecoute du formulaire (partie prénom)
-formulaire[0].addEventListener('input', function(e) {
-//Création d'une regex pour la validation du prénom  
-  let firstRegex = /^[a-zA-Z-]{2,}$/;
-//Récupération de la balise span
-  let firstError = document.getElementById('first-validation');
-//Test du champ prénom
+formData[0].addEventListener('input', function(e) {
+  //Création d'une regex pour la validation du prénom  
+  let firstRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
+  //Récupération de la balise span
+  let firstValidate = document.getElementById('first-validation');
+  //Test du champ prénom
   if (firstRegex.test(firstName.value) == false) {
-//Si le prénom ne respecte pas la regex    
-    firstError.style.display = 'block';
-    firstError.style.color = 'red';
-    firstError.style.fontSize = '10px';
-    firstError.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du prénom.";
+    //Si le prénom ne respecte pas la regex    
+    firstValidate.style.display = 'block';
+    firstValidate.style.color = 'red';
+    firstValidate.style.fontSize = '13px';
+    firstValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du prénom.";
     return false;
 
   } else {
-//Sinon la regex est valide    
-    firstError.style.display = 'none';
+    //Sinon la regex est valide    
+    firstValidate.style.display = 'none';
     return true;
 
   }
 });
 
 //Ecoute du formulaire (partie nom)
-formulaire[1].addEventListener('input', function(e) {
-//Création d'une regex pour la validation du nom 
-    let lastRegex = /^[a-zA-Z-]{2,}$/;
-//Récupération de la balise span
-    let lastError = document.getElementById('last-validation');
-//Test du champ nom
-    if (lastRegex.test(lastName.value) == false) {
-//Si le nom ne respecte pas la regex      
-      lastError.style.display = 'block';
-      lastError.style.color = 'red';
-      lastError.style.fontSize = '10px';
-      lastError.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du nom.";
-      return false;
-  
-    } else {
-//Sinon la regex est valide       
-      lastError.style.display = 'none';
-      return true;
-  
-    }
-  });
+formData[1].addEventListener('input', function(e) {
+  //Création d'une regex pour la validation du nom 
+  let lastRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
+  //Récupération de la balise span
+  let lastValidate = document.getElementById('last-validation');
+  //Test du champ nom
+  if (lastRegex.test(lastName.value) == false) {
+  //Si le nom ne respecte pas la regex      
+    lastValidate.style.display = 'block';
+    lastValidate.style.color = 'red';
+    lastValidate.style.fontSize = '13px';
+    lastValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du nom.";
+    return false;
+
+  } else {
+    //Sinon la regex est valide       
+    lastValidate.style.display = 'none';
+    return true;
+
+  }
+});
 
 //Ecoute du formulaire (partie email)
-formulaire[2].addEventListener('input', function(e) {
-//Création d'une regex pour la validation de l'email
-    let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-//Récupération de la balise span
-    let emailError = document.getElementById('email-validation');
-//Test du champ email
-    if (emailRegex.test(email.value) == false) {
-//Si l'adresse ne respecte pas la regex
-      emailError.style.display = 'block';
-      emailError.style.color = 'red';
-      emailError.style.fontSize = '10px';
-      emailError.innerHTML = "L'adresse éléctronique n'est pas valide";
-      return false;
+formData[2].addEventListener('input', function(e) {
+  //Création d'une regex pour la validation de l'email
+  let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  //Récupération de la balise span
+  let emailValidate = document.getElementById('email-validation');
+  //Test du champ email
+  if (emailRegex.test(email.value) == false) {
+    //Si l'adresse ne respecte pas la regex
+    emailValidate.style.display = 'block';
+    emailValidate.style.color = 'red';
+    emailValidate.style.fontSize = '13px';
+    emailValidate.innerHTML = "L'adresse éléctronique n'est pas valide";
+    return false;
 
-    } else {
-//Sinon la regex est valide       
-      emailError.style.display = 'none';
-      return true;  
-    }
-  });
+  } else {
+    //Sinon la regex est valide       
+    emailValidate.style.display = 'none';
+    return true;  
+  }
+});
 
 //Ecoute du formulaire (partie birthday)
-formulaire[3].addEventListener('input', function(e) {
-//Création d'une regex pour la validation de la date de naissance
-    let birthRegex = /^(19[3-9][0-9]|20[0-1][0-9])[-/](0?[1-9]|1[0-2])[-/](0?[1-9]|[12][0-9]|3[01])$/;
-//Récupération de la balise span
-    let birthError = document.getElementById('birth-validation');
-//Test du champ birthdate
-    if (birthRegex.test(birthdate.value) == false) {
-//Si la date ne respecte pas la regex
-      birthError.style.display = 'block';
-      birthError.style.color = 'red';
-      birthError.style.fontSize = '10px';
-      birthError.innerHTML = "La date de naissance n'est pas valide";
-      return false;
+formData[3].addEventListener('input', function(e) {
+  //Création d'une regex pour la validation de la date de naissance
+  let birthRegex = /^(19[0-9][0-9]|20[0][0-8])[-/](0?[1-9]|1[0-2])[-/](0?[1-9]|[12][0-9]|3[01])$/;
+  //Récupération de la balise span
+  let birthValidate = document.getElementById('birth-validation');
+  //Test du champ birthdate
+  if (birthRegex.test(birthdate.value) == false) {
+    //Si la date ne respecte pas la regex
+    birthValidate.style.display = 'block';
+    birthValidate.style.color = 'red';
+    birthValidate.style.fontSize = '13px';
+    birthValidate.innerHTML = "La date de naissance n'est pas valide";
+    return false;
 
-    } else {
-//Sinon la regex est valide       
-      birthError.style.display = 'none';
-      return true;  
-    }
-  });
+  } else {
+    //Sinon la regex est valide       
+    birthValidate.style.display = 'none';
+    return true;  
+  }
+});
 
 //Ecoute du formulaire (partie quantity)
-formulaire[4].addEventListener('input', function(e) {
-//Création d'une regex pour la validation du nb de tournoi
-    let quantityRegex = /^[0-9]{1,2}$/;
-//Récupération de la balise span
-    let quantityError = document.getElementById('quantity-validation');
-//Test du champ quantity
-    if (quantityRegex.test(quantity.value) == false) {
-//Si le nb ne respecte pas la regex      
-      quantityError.style.display = 'block';
-      quantityError.style.color = 'red';
-      quantityError.style.fontSize = '10px';
-      quantityError.innerHTML = "Veuillez entrer un chiffre entre 0 et 99.";
-      return false;
-  
-    } else {
-//Sinon la regex est valide       
-      quantityError.style.display = 'none';
-      return true;
-  
-    }
-  });
+formData[4].addEventListener('input', function(e) {
+  //Création d'une regex pour la validation du nb de tournoi
+  let quantityRegex = /^[0-9]{1,2}$/;
+  //Récupération de la balise span
+  let quantityValidate = document.getElementById('quantity-validation');
+  //Test du champ quantity
+  if (quantityRegex.test(quantity.value) == false) {
+    //Si le nb ne respecte pas la regex      
+    quantityValidate.style.display = 'block';
+    quantityValidate.style.color = 'red';
+    quantityValidate.style.fontSize = '13px';
+    quantityValidate.innerHTML = "Veuillez entrer un chiffre entre 0 et 99.";
+    return false;
 
-//Ecoute du formulaire (partie radio)
-formulaire[5].addEventListener('change', function(e) {
-//Récupération de la balise span
-  let radioError = document.getElementById('radio-validation');
+  } else {
+    //Sinon la regex est valide       
+    quantityValidate.style.display = 'none';
+    return true;
 
-    if (city.checked != null) {
-//Si une ville n'est pas séléctionné
-      radioError.style.display = 'block';
-      radioError.style.color = 'red';
-      radioError.style.fontSize = '10px';
-      radioError.innerHTML = "Veuillez séléctionner une ville";
-      return false;
-    } else {
-//Sinon la séléction est valide
-      radioError.style.display = 'none';
-      return true;
-    }
-  });
+  }
+});
 
 //Ecoute du formulaire (partie checkbox)
-formulaire[6].addEventListener('change', function(e) {
+formData[6].addEventListener('change', function(e) {
   //Récupération de la balise span
-    let checkboxError = document.getElementById('checkbox-validation');
-  
-    if (checkbox1.checked == false) {
-//Si la case conditions d'utilisation n'est pas séléctionné
-      checkboxError.style.display = 'block';
-      checkboxError.style.color = 'red';
-      checkboxError.style.fontSize = '10px';
-      checkboxError.innerHTML = "Veuillez accepté les conditions d'utilisation";
-      return false;
-    } else {
-//Sinon la séléction est valide
-      checkboxError.style.display = 'none';
-      return true;
-    }
-  });
+  let checkboxValidate = document.getElementById('checkbox-validation');
 
-/* *******************TRAITEMENT CAS PAR CAS******************
+  if (checkbox1.checked == false) {
+    //Si la case conditions d'utilisation n'est pas séléctionné
+    checkboxValidate.style.display = 'block';
+    checkboxValidate.style.color = 'red';
+    checkboxValidate.style.fontSize = '13px';
+    checkboxValidate.innerHTML = "Veuillez accepté les conditions d'utilisation";
+    return false;
+  } else {
+    //Sinon la séléction est valide
+    checkboxValidate.style.display = 'none';
+    return true;
+  }
+});
+
+// TRAITEMENT CAS PAR CAS
+
+//Création d'une variable qui définira si les différentes conditions d'envoie sont remplis
+var validationChampsIndividuel;
 //Ecoute du formulaire dans son ensemble pour valider l'envoi
-formulaireId.addEventListener('submit', function(e) {
+formulaire.addEventListener('submit', function(e) {
 
   if (!firstName.value) {
     
-    let firstError = document.getElementById('first-validation');
-    firstError.style.display = 'block';
-    firstError.style.color = 'red';
-    firstError.style.fontSize = '10px';
-    firstError.innerHTML = "Veuillez renseigner votre prénom";
+    let firstValidate = document.getElementById('first-validation');
+    firstValidate.style.display = 'block';
+    firstValidate.style.color = 'red';
+    firstValidate.style.fontSize = '13px';
+    firstValidate.innerHTML = "Veuillez renseigner votre prénom";
     e.preventDefault();
+    validationChampsIndividuel = false;
     return false;
 
-  } if (!lastName.value) {
+  } else if (!lastName.value) {
     
-    let lastError = document.getElementById('last-validation');
-    lastError.style.display = 'block';
-    lastError.style.color = 'red';
-    lastError.style.fontSize = '10px';
-    lastError.innerHTML = "Veuillez renseigner votre nom";
+    let lastValidate = document.getElementById('last-validation');
+    lastValidate.style.display = 'block';
+    lastValidate.style.color = 'red';
+    lastValidate.style.fontSize = '13px';
+    lastValidate.innerHTML = "Veuillez renseigner votre nom";
     e.preventDefault();
+    validationChampsIndividuel = false;
     return false;
 
-  } if (!email.value) {
+  } else if (!email.value) {
     
-    let emailError = document.getElementById('email-validation');
-    emailError.style.display = 'block';
-    emailError.style.color = 'red';
-    emailError.style.fontSize = '10px';
-    emailError.innerHTML = "Veuillez renseigner votre adresse mail";
+    let emailValidate = document.getElementById('email-validation');
+    emailValidate.style.display = 'block';
+    emailValidate.style.color = 'red';
+    emailValidate.style.fontSize = '13px';
+    emailValidate.innerHTML = "Veuillez renseigner votre adresse mail";
     e.preventDefault();
+    validationChampsIndividuel = false;
     return false;
 
-  } if (!birthdate.value) {
+  } else if (!birthdate.value) {
     
-    let birthError = document.getElementById('birth-validation');
-    birthError.style.display = 'block';
-    birthError.style.color = 'red';
-    birthError.style.fontSize = '10px';
-    birthError.innerHTML = "Veuillez renseigner votre date de naissance";
+    let birthValidate = document.getElementById('birth-validation');
+    birthValidate.style.display = 'block';
+    birthValidate.style.color = 'red';
+    birthValidate.style.fontSize = '13px';
+    birthValidate.innerHTML = "Veuillez renseigner votre date de naissance";
     e.preventDefault();
+    validationChampsIndividuel = false;
     return false;
 
-  } if (!quantity.value) {
+  } else if (!quantity.value) {
     
-    let quantityError = document.getElementById('quantity-validation');
-    quantityError.style.display = 'block';
-    quantityError.style.color = 'red';
-    quantityError.style.fontSize = '10px';
-    quantityError.innerHTML = "Veuillez indiquer vos participations aux tournois";
+    let quantityValidate = document.getElementById('quantity-validation');
+    quantityValidate.style.display = 'block';
+    quantityValidate.style.color = 'red';
+    quantityValidate.style.fontSize = '13px';
+    quantityValidate.innerHTML = "Veuillez indiquer vos participations aux tournois";
     e.preventDefault();
+    validationChampsIndividuel = false;
     return false;
 
-  } if (city.checked != null) {
+  } else if (!(city[0].checked || city[1].checked || city[2].checked || city[3].checked || city[4].checked || city[5].checked)) {
     
-    let radioError = document.getElementById('radio-validation');
-    radioError.style.display = 'block';
-    radioError.style.color = 'red';
-    radioError.style.fontSize = '10px';
-    radioError.innerHTML = "Veuillez séléctionner une ville";
+    let radioValidate = document.getElementById('radio-validation');
+    radioValidate.style.display = 'block';
+    radioValidate.style.color = 'red';
+    radioValidate.style.fontSize = '13px';
+    radioValidate.innerHTML = "Veuillez séléctionner une ville";
     e.preventDefault();
+    validationChampsIndividuel = false;
     return false;
 
-  } if (!checkbox1.checked) {
+  } else if (!checkbox1.checked) {
     
-    let checkboxError = document.getElementById('checkbox-validation');
-    checkboxError.style.display = 'block';
-    checkboxError.style.color = 'red';
-    checkboxError.style.fontSize = '10px';
-    checkboxError.innerHTML = "Les conditions d'utilisation ne sont pas acceptées";
+    let checkboxValidate = document.getElementById('checkbox-validation');
+    checkboxValidate.style.display = 'block';
+    checkboxValidate.style.color = 'red';
+    checkboxValidate.style.fontSize = '13px';
+    checkboxValidate.innerHTML = "Les conditions d'utilisation ne sont pas acceptées";
     e.preventDefault();
+    validationChampsIndividuel = false;
     return false;
 
   } else {
 
-    alert("Merci! Votre réservation a été reçue.")
+    validationChamps = true;
+    //console.log(city[i].value);
+    console.log(firstName.value);
+    console.log(lastName.value);
+    console.log(email.value);
+    console.log(birthdate.value);
+    console.log(quantity.value);
+    return true;
 
   }
 });
-*/
 
-//  *************TRAITEMENT GENERIQUE ***************
+
+//TRAITEMENT DE LA VALIDATION GLOBALE
+//Création d'une variable qui définira si les conditions globale d'envoie sont remplis
+var validationChampsTexte;
+
 //Ecoute du formulaire dans sa globalité via "name" pour l'envoi
 document.forms["reserve"].addEventListener('submit', function(e) {
 //Création d'une variable pour le message d erreur
@@ -282,7 +283,9 @@ document.forms["reserve"].addEventListener('submit', function(e) {
   for (var i = 0; i < inputs.length; i++) {
 //Si une des entrées d'input' n'a pas de valeur
     if (!inputs[i].value) {
+      
       erreur = "Veuillez renseigner tout les champs";
+
     }
 //Si pas de valeur retourne une erreur défini ici
   } if (erreur) {
@@ -290,10 +293,51 @@ document.forms["reserve"].addEventListener('submit', function(e) {
     e.preventDefault();
     document.getElementById('error-validation').innerHTML = erreur;
     document.getElementById('error-validation').style.color = 'red';
-    document.getElementById('error-validation').style.fontSize = '14px';
-    return false;
+    document.getElementById('error-validation').style.fontSize = '16px';
+    validationChampsTexte = false;
 //Sinon le formulaire est envoyé
   } else {
+    
+    console.log("Bravo! Les champs de textes sont remplis.");
+    validationChampsTexte = true;
+  
+  }
+});
+//Meme boucle que précédemment mais ne concerne que la partie Radio
+var validationRadio;
+
+formulaire.addEventListener('submit', function(e) {
+
+  var erreurMsg;
+  
+  {
+
+    if (!(city[0].checked || city[1].checked || city[2].checked || city[3].checked || city[4].checked || city[5].checked)) {
+      erreurMsg = "Veuillez renseigner tout les champs";
+    }
+  //Si pas de valeur retourne une erreur défini ici
+  } if (erreurMsg) {
+
+    e.preventDefault();
+    document.getElementById('error-validation').innerHTML = erreurMsg;
+    document.getElementById('error-validation').style.color = 'red';
+    document.getElementById('error-validation').style.fontSize = '16px';
+    validationRadio = false;
+  //Sinon le formulaire est envoyé
+  } else {
+
+    validationRadio = true;
+    console.log("Excellent! Vous avez choisis une ville.");
+  
+  }
+});
+
+//Validation des vérifications des conditions au cas par cas et globale
+formulaire.addEventListener('submit', function(e) {
+//Si validationChamps = true et validationGlobale = true alors le document est envoyé avec message de confirmation  
+  if ((validationChamps && validationChampsTexte && validationRadio) == true) {
+    
     alert("Merci! Votre réservation a été reçue.");
+  
   }
 });
