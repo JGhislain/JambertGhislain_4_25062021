@@ -38,7 +38,6 @@ function closeModal() {
   modalDisplay.style.display = "none";
 }
 
-var validationRegex;
 //Ecoute du formulaire (partie prénom)
 formData[0].addEventListener('input', function(e) {
   //Création d'une regex pour la validation du prénom  
@@ -52,13 +51,11 @@ formData[0].addEventListener('input', function(e) {
     firstValidate.style.color = 'red';
     firstValidate.style.fontSize = '13px';
     firstValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du prénom.";
-    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide    
     firstValidate.style.display = 'none';
-    validationRegex = true;
     return true;
 
   }
@@ -77,17 +74,17 @@ formData[1].addEventListener('input', function(e) {
     lastValidate.style.color = 'red';
     lastValidate.style.fontSize = '13px';
     lastValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du nom.";
-    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     lastValidate.style.display = 'none';
-    validationRegex = true;
     return true;
 
   }
 });
+
+var validationEmailRegex = false;
 
 //Ecoute du formulaire (partie email)
 formData[2].addEventListener('input', function(e) {
@@ -102,16 +99,18 @@ formData[2].addEventListener('input', function(e) {
     emailValidate.style.color = 'red';
     emailValidate.style.fontSize = '13px';
     emailValidate.innerHTML = "L'adresse éléctronique n'est pas valide";
-    validationRegex = false;
+    validationEmailRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     emailValidate.style.display = 'none';
-    validationRegex = true;
+    validationEmailRegex = true;
     return true;  
   }
 });
+
+var validationBirthRegex = false;
 
 //Ecoute du formulaire (partie birthday)
 formData[3].addEventListener('input', function(e) {
@@ -126,13 +125,13 @@ formData[3].addEventListener('input', function(e) {
     birthValidate.style.color = 'red';
     birthValidate.style.fontSize = '13px';
     birthValidate.innerHTML = "La date de naissance n'est pas valide";
-    validationRegex = false;
+    validationBirthRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     birthValidate.style.display = 'none';
-    validationRegex = true;
+    validationBirthRegex = true;
     return true;  
   }
 });
@@ -150,13 +149,11 @@ formData[4].addEventListener('input', function(e) {
     quantityValidate.style.color = 'red';
     quantityValidate.style.fontSize = '13px';
     quantityValidate.innerHTML = "Veuillez entrer un chiffre entre 0 et 99.";
-    validationRegex = false;
     return false;
 
   } else {
     //Sinon la regex est valide       
     quantityValidate.style.display = 'none';
-    validationRegex = true;
     return true;
 
   }
@@ -184,11 +181,11 @@ formData[6].addEventListener('change', function(e) {
 // TRAITEMENT CAS PAR CAS
 
 //Création d'une variable qui définira si les différentes conditions d'envoie sont remplis
-var validationChampsIndividuel;
+var validationChampsIndividuel = false;
 //Ecoute du formulaire dans son ensemble pour valider l'envoi
 formulaire.addEventListener('submit', function(e) {
 
-  if (!firstName.value) {
+  if (firstName.value.length < 2) {
     
     let firstValidate = document.getElementById('first-validation');
     firstValidate.style.display = 'block';
@@ -199,7 +196,7 @@ formulaire.addEventListener('submit', function(e) {
     validationChampsIndividuel = false;
     return false;
 
-  } else if (!lastName.value) {
+  } else if (lastName.value. length < 2) {
     
     let lastValidate = document.getElementById('last-validation');
     lastValidate.style.display = 'block';
@@ -210,7 +207,7 @@ formulaire.addEventListener('submit', function(e) {
     validationChampsIndividuel = false;
     return false;
 
-  } else if (!email.value) {
+  } else if (!email.value || validationEmailRegex === false) {
     
     let emailValidate = document.getElementById('email-validation');
     emailValidate.style.display = 'block';
@@ -221,24 +218,24 @@ formulaire.addEventListener('submit', function(e) {
     validationChampsIndividuel = false;
     return false;
 
-  } else if (!birthdate.value) {
+  } else if (validationBirthRegex === false) {
     
     let birthValidate = document.getElementById('birth-validation');
     birthValidate.style.display = 'block';
     birthValidate.style.color = 'red';
     birthValidate.style.fontSize = '13px';
-    birthValidate.innerHTML = "Veuillez renseigner votre date de naissance";
+    birthValidate.innerHTML = "Vous devez avoir plus de 13 ans ou entrer une adresse valide";
     e.preventDefault();
     validationChampsIndividuel = false;
     return false;
 
-  } else if (!quantity.value) {
+  } else if (!quantity.value || quantity.value < 0) {
     
     let quantityValidate = document.getElementById('quantity-validation');
     quantityValidate.style.display = 'block';
     quantityValidate.style.color = 'red';
     quantityValidate.style.fontSize = '13px';
-    quantityValidate.innerHTML = "Veuillez indiquer vos participations aux tournois";
+    quantityValidate.innerHTML = "Veuillez indiquer vos participations aux tournois ou entrer un chiffre entre 0 et 99";
     e.preventDefault();
     validationChampsIndividuel = false;
     return false;
@@ -268,12 +265,12 @@ formulaire.addEventListener('submit', function(e) {
   } else {
 
     validationChampsIndividuel = true;
-    console.log(document.querySelector("input[name='location']:checked").value);
     console.log(firstName.value);
     console.log(lastName.value);
     console.log(email.value);
     console.log(birthdate.value);
     console.log(quantity.value);
+    console.log(document.querySelector("input[name='location']:checked").value);
     return true;
 
   }
@@ -282,7 +279,7 @@ formulaire.addEventListener('submit', function(e) {
 
 //TRAITEMENT DE LA VALIDATION GLOBALE
 //Création d'une variable qui définira si les conditions globale d'envoie sont remplis
-var validationChampsTexte;
+var validationChampsTexte = false;
 
 //Ecoute du formulaire dans sa globalité via "name" pour l'envoi
 document.forms["reserve"].addEventListener('submit', function(e) {
@@ -296,6 +293,7 @@ document.forms["reserve"].addEventListener('submit', function(e) {
     if (!inputs[i].value) {
       
       erreur = "Veuillez renseigner tout les champs";
+      break;
 
     }
 //Si pas de valeur retourne une erreur défini ici
@@ -312,6 +310,7 @@ document.forms["reserve"].addEventListener('submit', function(e) {
   } else {
     
     console.log("Bravo! Les champs de textes sont remplis.");
+    document.getElementById('error-validation').style.display = 'none';
     validationChampsTexte = true;
     return true;
   
@@ -321,18 +320,20 @@ document.forms["reserve"].addEventListener('submit', function(e) {
 
 formulaire.addEventListener('submit', function(e) {
 
-  var erreurMsg;
+  var erreur;
   
   {
 
     if (!(city[0].checked || city[1].checked || city[2].checked || city[3].checked || city[4].checked || city[5].checked)) {
-      erreurMsg = "Veuillez renseigner tout les champs";
+      
+      erreur = "Veuillez renseigner tout les champs";
+
     }
   //Si pas de valeur retourne une erreur défini ici
-  } if (erreurMsg) {
+  } if (erreur) {
 
     e.preventDefault();
-    document.getElementById('error-validation').innerHTML = erreurMsg;
+    document.getElementById('error-validation').innerHTML = erreur;
     document.getElementById('error-validation').style.transition = '0.3s';
     document.getElementById('error-validation').style.color = '#e54858';
     document.getElementById('error-validation').style.fontSize = '16px';
@@ -350,10 +351,13 @@ formulaire.addEventListener('submit', function(e) {
 formulaire.addEventListener('submit', function(e) {
   //faire appel aux éléments de validation ici en appelant le return)
 //Si validationChamps = true et validationGlobale = true alors le document est envoyé avec message de confirmation  
-  if (((validationRegex) && (validationChampsIndividuel) && (validationChampsTexte)) == true) {
+  if ((validationChampsTexte === true) && (validationChampsIndividuel === true)) {
     
     alert("Merci! Votre réservation a été reçue.");
     return true;
   
+  } else {
+    e.preventDefault;
+    return false;
   }
 });
