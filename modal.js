@@ -20,6 +20,7 @@ const birthdate = document.getElementById('birthdate');
 const quantity = document.getElementById('quantity');
 const city = document.getElementsByName('location');
 const checkbox1 = document.getElementById('checkbox1');
+const modalConfirmation = document.querySelector('.modal-confirmation');
 
 // launch modal event
 modalBoutons.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -89,7 +90,7 @@ var validationEmailRegex = false;
 //Ecoute du formulaire (partie email)
 formData[2].addEventListener('input', function(e) {
   //Création d'une variable pour une regex de validation de l'email
-  let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   //Récupération de la balise span
   let emailValidate = document.getElementById('email-validation');
   //Test du champ email
@@ -185,7 +186,7 @@ var validationChampsIndividuel = false;
 //Ecoute du formulaire dans son ensemble pour valider l'envoi
 formulaire.addEventListener('submit', function(e) {
 
-  if (firstName.value.length < 2) {
+  if (firstName.value.trim().length < 2) {
   // si moins de 2 caractères saisie dans le champ prénom alors le champ n est pas valide et l envoi est refusé
     let firstValidate = document.getElementById('first-validation');
     firstValidate.style.display = 'block';
@@ -195,7 +196,7 @@ formulaire.addEventListener('submit', function(e) {
     e.preventDefault();
     return validationChampsIndividuel = false;
 
-  } else if (lastName.value. length < 2) {
+  } else if (lastName.value.trim().length < 2) {
     // si moins de 2 caractères saisie dans le champ nom alors le champ n est pas valide et l envoi est refusé
     let lastValidate = document.getElementById('last-validation');
     lastValidate.style.display = 'block';
@@ -310,14 +311,33 @@ document.forms["reserve"].addEventListener('submit', function(e) {
 
 //Validation des vérifications des conditions au cas par cas et globale
 formulaire.addEventListener('submit', function(e) {
-//Si validationChamps = true et validationGlobale = true alors le document est envoyé avec message de confirmation  
+
+  var openModalConfirmation;
+//Si validationChampsTexte = true et validationChampsIndividuel = true alors le document est envoyé avec message de confirmation  
   if ((validationChampsTexte === true) && (validationChampsIndividuel === true)) {
     
-    alert("Merci! Votre réservation a été reçue.");
-    return true;
+    e.preventDefault();
+    openModalConfirmation = true,
+    modalConfirmation.style.display = 'block';
   
+  } if (openModalConfirmation) {
+    
+    modalDisplay.style.display = "none";
+    return true;
+
   } else {
-    e.preventDefault;
+    e.preventDefault();
     return false;
   }
 });
+
+// Evenement d'écoute du clic de la croix de fermeture de la fenetre Modale de confirmation
+modalBoutonClose[1].addEventListener("click", closeModalConfirmation);
+// Evenement d'écoute du clic sur le bouton Fermer de la fenetre Modale de confirmation
+document.getElementById('confirmation').addEventListener('click', closeModalConfirmation);
+// Fonction attachée à l'écoute des clics sur les bouton de fermeture de la fenetre de confirmation
+function closeModalConfirmation() {
+  modalConfirmation.style.display = 'none';
+  return true;
+}
+

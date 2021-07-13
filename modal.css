@@ -460,7 +460,54 @@ input[data-error]::after {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
   padding: 0;
+}
+.modal-confirmation {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(26, 39, 156, 0.4);
+}
+.confirmation-content {
+  margin: 5% auto;
+  width: 100%;
+  max-width: 500px;
+  animation-name: modalopen;
+  animation-duration: var(--modal-duration);
+  background: #232323;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  color: #FFF;
+  padding-top: 10px;
+}
+.confirmation-text {
+  padding: 319px 67px;
+  position: relative;
+  text-align: left;
+  min-width: 424px;
+  width: 146%;
+  font-weight: normal;
+  margin-top: 57px;
+}
+#btn-confirmer {
+  background: #fe142f;
+  display: block;
+  margin: 0px auto;
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 82px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  position: relative;
+  bottom: 20px;
 }
 .copyrights {
   color: #fe142f;

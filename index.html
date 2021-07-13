@@ -50,7 +50,7 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
-            <form name="reserve" id="formulaire" action="index.html" method="get" >
+            <form name="reserve" id="formulaire" action="index.html" method="post" >
               <div class="formData">
                 <label for="first">Prénom</label>
                 <br>
@@ -135,11 +135,22 @@
                 </label>
                 <br>
               </div>
-              <input class="btn-submit" type="submit" class="button" value="C'est parti"/>
+              <input class="btn-submit" type="submit" id="btn-submit" class="button" value="C'est parti"/>
               <br>
               <span id="error-validation"></span>
             </form>
           </div>
+        </div>
+      </div>
+      <div id="confirmation" class="modal-confirmation"> 
+        <div class="confirmation-content">
+          <span class="close"></span>
+          <p class="confirmation-text">
+          Merci! Votre réservation à été reçue.
+          </p>
+          <button id="btn-confirmer">
+            Fermer
+          </button>
         </div>
       </div>
     </main>
